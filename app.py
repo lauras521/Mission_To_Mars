@@ -15,6 +15,7 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app"
 mongo = PyMongo(app)
 
+
 #define route for html page
 @app.route('/')
 #This function is what links our visual representation of our work, 
@@ -26,6 +27,7 @@ def index():
     #,mars=mars tells python to use the "mars" collection in MongoDB
     return render_template('index.html',mars=mars)
 
+
 #will be the button to scrape and update the data
 @app.route("/scrape")
 #access database, scrape new data using scraping.py, update db, 
@@ -36,10 +38,9 @@ def scrape():
     #variable to jold scraped data
     mars_data=scraping.scrape_all()
     #update database
-    mars.update_one({},{'$set':mars_data},upsert=True)
+    mars.update_one({}, {"$set":mars_data}, upsert=True)
     #navitage page back to where we can see updated content
     return redirect('/',code=302)
 #needed for Flask to tell it to run
 if __name__ == "__main__":
    app.run()
-

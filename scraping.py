@@ -56,7 +56,7 @@ def mars_news(browser):
         news_p = slide_elem.find('div', class_='article_teaser_body').get_text()
 
     except AttributeError:
-        return None, None
+        return "ok", "ok"
 
     return news_title, news_p
 
@@ -80,7 +80,7 @@ def featured_image(browser):
         img_url_rel = img_soup.find('img', class_='fancybox-image').get('src')
 
     except AttributeError:
-        return None
+        return "ok"
 
     # Use the base url to create an absolute url
     img_url = f'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/{img_url_rel}'
@@ -94,7 +94,7 @@ def mars_facts():
         df = pd.read_html('https://data-class-mars-facts.s3.amazonaws.com/Mars_Facts/index.html')[0]
 
     except BaseException:
-        return None
+        return "ok"
 
     # Assign columns and set index of dataframe
     df.columns=['Description', 'Mars', 'Earth']
